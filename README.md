@@ -8,6 +8,7 @@
 - *"When is the 5th business day of next month?"*
 - *"Which dates should we send reminders on, 7, 3 and 1 business days before?"*
 
+[![npm](https://img.shields.io/npm/v/@contalert/duedates)](https://www.npmjs.com/package/@contalert/duedates)
 [![CI](https://github.com/contalert/duedates/actions/workflows/ci.yml/badge.svg)](https://github.com/contalert/duedates/actions/workflows/ci.yml)
 ![zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)
 ![license MIT](https://img.shields.io/badge/license-MIT-blue)
