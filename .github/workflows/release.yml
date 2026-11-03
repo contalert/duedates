@@ -1,0 +1,29 @@
+name: Release
+
+# Publishes to npm through trusted publishing (OIDC): no npm token is stored anywhere.
+# To release: bump "version" in package.json, commit, then push a matching tag (e.g. v0.1.1).
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - name: Check that the tag matches package.json
+        run: test "v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
+      - run: npm ci
+      # prepublishOnly runs typecheck, tests and build before publishing.
+      - run: npm publish --access public
