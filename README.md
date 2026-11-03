@@ -142,6 +142,10 @@ const calendar = createCalendar({
 });
 ```
 
+## Releases
+
+Every release is built from this repository by GitHub Actions and published through npm trusted publishing, with [provenance](https://docs.npmjs.com/generating-provenance-statements) — so you can verify that the package on npm came from this source code. A maintainer approves each release with two-factor authentication before it goes live.
+
 ## Contributing
 
 Issues and pull requests are welcome. Run `npm test` and `npm run typecheck` before opening a pull request. Please report security issues privately — see [SECURITY.md](SECURITY.md).

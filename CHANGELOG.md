@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1 — 2026-11-03
+
+- Releases are now built and published from GitHub Actions through npm trusted publishing, with provenance attestations. No library code changes.
+
 ## 0.1.0 — 2026-11-03
 
 First release.

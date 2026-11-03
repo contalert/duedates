@@ -1,6 +1,6 @@
 {
   "name": "@contalert/duedates",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Recurring deadlines with business days, holidays and reminders. Zero dependencies, time-zone safe.",
   "keywords": [
     "deadline",
@@ -35,6 +35,9 @@
     "dist"
   ],
   "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=20"
   },
