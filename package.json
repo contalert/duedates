@@ -1,0 +1,51 @@
+{
+  "name": "@contalert/duedates",
+  "version": "0.1.0",
+  "description": "Recurring deadlines with business days, holidays and reminders. Zero dependencies, time-zone safe.",
+  "keywords": [
+    "deadline",
+    "due-date",
+    "business-days",
+    "working-days",
+    "holidays",
+    "recurring",
+    "schedule",
+    "reminders",
+    "calendar",
+    "modified-following"
+  ],
+  "license": "MIT",
+  "author": "ContAlert Sistemas Ltda <contato@contalert.com.br> (https://contalert.com.br)",
+  "homepage": "https://github.com/contalert/duedates#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contalert/duedates.git"
+  },
+  "bugs": "https://github.com/contalert/duedates/issues",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  }
+}
