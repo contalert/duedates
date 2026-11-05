@@ -7,6 +7,7 @@
 - *"Invoices are due on the 20th — but what if the 20th is a Sunday?"*
 - *"When is the 5th business day of next month?"*
 - *"Which dates should we send reminders on, 7, 3 and 1 business days before?"*
+- *"A ticket opened Friday at 3 pm must be answered within 4 business hours — by when?"*
 
 [![npm](https://img.shields.io/npm/v/@contalert/duedates)](https://www.npmjs.com/package/@contalert/duedates)
 [![CI](https://github.com/contalert/duedates/actions/workflows/ci.yml/badge.svg)](https://github.com/contalert/duedates/actions/workflows/ci.yml)
@@ -100,10 +101,11 @@ Returns `{ nominal, due }[]` for every occurrence whose due date is on or after 
 
 The first occurrence due on or after `from`.
 
-### `createCalendar({ weekend?, holidays? })`
+### `createCalendar({ weekend?, holidays?, workingHours? })`
 
 - `weekend` — weekdays that are never business days. Default `[6, 7]` (Saturday, Sunday).
 - `holidays` — an iterable of `YYYY-MM-DD` strings, or a function `(date) => boolean`.
+- `workingHours` — working hours on business days, for the [business-hours methods](#business-hours-slas). Default 09:00–17:00.
 
 The calendar has:
 
@@ -117,6 +119,38 @@ The calendar has:
 ### `reminderDates(due, offsets, { unit?, calendar? })`
 
 The dates to send reminders on, `offsets` days before `due`, sorted and de-duplicated. `unit` is `'businessDays'` (default) or `'calendarDays'`.
+
+### Business hours (SLAs)
+
+For deadlines measured in hours — support tickets, SLAs, approval windows — give the calendar working hours. Moments are wall-clock `YYYY-MM-DDTHH:mm` strings in the business's own time zone.
+
+```ts
+import { createCalendar, now } from '@contalert/duedates';
+
+const support = createCalendar({
+  holidays: ['2026-12-25'],
+  workingHours: [['09:00', '12:00'], ['13:00', '18:00']], // lunch break excluded
+});
+
+// Ticket opened Friday at 15:00, SLA of 4 business hours
+support.addBusinessHours('2026-11-06T15:00', 4);
+// '2026-11-09T10:00' — Friday 15:00–18:00, then Monday 09:00–10:00
+
+support.businessMinutesBetween('2026-11-06T15:00', '2026-11-09T11:00'); // 300
+support.isWithinBusinessHours(now('America/New_York'));
+```
+
+| Method | |
+|---|---|
+| `addBusinessHours(dateTime, hours)` | Moves forward (or back, if negative) by working hours. `1.5` is 90 minutes. |
+| `addBusinessMinutes(dateTime, minutes)` | The same, in minutes. |
+| `businessMinutesBetween(start, end)` | Working minutes from `start` to `end`. |
+| `isWithinBusinessHours(dateTime)` | Whether a moment is inside working hours on a business day. |
+
+- `workingHours` defaults to `[['09:00', '17:00']]`. Ranges include their start and exclude their end; `'24:00'` is allowed as an end.
+- Use an object for hours that differ by weekday: `{ 1: [['09:00', '18:00']], 5: [['09:00', '13:00']] }`. Weekdays left out have no working hours.
+- Time outside working hours doesn't count: a ticket opened at 20:00 starts its clock at the next opening. A deadline that fills a day exactly ends at closing time (17:00), not at the next opening.
+- `now(timeZone?)` gives the current wall-clock moment, e.g. `now('Europe/London')`.
 
 ### Date helpers
 

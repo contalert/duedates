@@ -1,6 +1,9 @@
 export { addDays, daysInMonth, isLeapYear, isValidDate, today, weekdayOf } from './date.js';
 export type { DateString, Weekday } from './date.js';
 
+export { now } from './hours.js';
+export type { DateTimeString, TimeRange, TimeString, WorkingHours } from './hours.js';
+
 export { createCalendar } from './calendar.js';
 export type { Adjustment, Calendar, CalendarOptions } from './calendar.js';
 

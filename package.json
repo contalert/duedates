@@ -1,11 +1,13 @@
 {
   "name": "@contalert/duedates",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Recurring deadlines with business days, holidays and reminders. Zero dependencies, time-zone safe.",
   "keywords": [
     "deadline",
     "due-date",
     "business-days",
+    "business-hours",
+    "sla",
     "working-days",
     "holidays",
     "recurring",

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0 — 2026-11-05
+
+- Business hours for SLAs: `workingHours` calendar option (with breaks and per-weekday hours), and the
+  `addBusinessHours`, `addBusinessMinutes`, `businessMinutesBetween` and `isWithinBusinessHours` methods.
+- `now(timeZone?)` returns the current wall-clock moment as `YYYY-MM-DDTHH:mm`.
+
 ## 0.1.1 — 2026-11-03
 
 - Releases are now built and published from GitHub Actions through npm trusted publishing, with provenance attestations. No library code changes.
